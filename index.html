@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Site</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button {
+            margin: 10px;
+            padding: 15px 30px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button class="button" onclick="window.location.href = 'https://example.com/download1.zip';">Download 1</button>
+        <button class="button" onclick="window.location.href = 'https://example.com/download2.exe';">Download 2</button>
+        <button class="button" onclick="window.location.href = 'https://example.com/download3.dmg';">Download 3</button>
+        <button class="button" onclick="window.location.href = 'https://example.com/download4.tar.gz';">Download 4</button>
+    </div>
+</body>
+</html>
