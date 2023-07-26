@@ -15,12 +15,20 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden; /* 隐藏溢出内容，以实现底部按钮的动画效果 */
         }
 
         .button-container {
-          display: flex;
-          gap: 10px;
-          margin-top: 20px; 
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            transform: translateY(100%); /* 将按钮初始位置设在底部 */
+            transition: transform 1s ease; /* 添加过渡效果，让按钮平滑移动 */
+        }
+
+        /* 当页面加载完成后，将按钮移动到其正常位置 */
+        body.loaded .button-container {
+            transform: translateY(0);
         }
 
         .button {
@@ -33,9 +41,17 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         h1 {
-          font-family: "Helvetica", sans-serif;
-          color: blue; 
+            font-family: "Helvetica", sans-serif;
+            color: blue;
+            transform: translateY(-100%); /* 将标题初始位置设在顶部 */
+            transition: transform 1s ease; /* 添加过渡效果，让标题平滑移动 */
+        }
+
+        /* 当页面加载完成后，将标题移动到其正常位置 */
+        body.loaded h1 {
+            transform: translateY(0);
         }
 
         .button:hover {
@@ -51,5 +67,12 @@
         <button class="button" onclick="window.location.href = 'https://wwtq.lanzouy.com/iAH3713kc6ud';">XccX工具箱（更新中）</button>
         <button class="button" onclick="window.location.href = 'https://example.com/download4.tar.gz';">Download 4</button>
     </div>
+
+    <script>
+        // 在页面加载完成后，添加 "loaded" 类名到 body 元素，以触发按钮和标题的动画效果
+        window.onload = function () {
+            document.body.classList.add('loaded');
+        };
+    </script>
 </body>
 </html>
