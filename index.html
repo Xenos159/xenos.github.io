@@ -24,7 +24,7 @@
         /* 添加顶部悬浮栏样式 */
         .top-navbar {
             position: fixed;
-            top: 0;
+            top: -60px; /* 初始位置在屏幕上方 */
             left: 0;
             width: 100%;
             background-color: rgba(0, 123, 255, 0.8); /* 蓝色半透明背景 */
@@ -34,6 +34,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 2; /* 将顶部悬浮栏置于最顶层 */
+            transition: top 0.5s ease; /* 添加顶部悬浮栏展开动画效果 */
         }
 
         .top-navbar h2 {
@@ -54,29 +55,50 @@
         /* 添加左侧边栏样式 */
         .sidebar-left {
             position: absolute;
-            left: 0;
+            left: -100px; /* 初始位置在屏幕左侧 */
             top: 0;
             bottom: 0;
             width: 100px;
             background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
             z-index: 1; /* 将左侧边栏置于顶部悬浮栏之下 */
+            transition: left 0.5s ease; /* 添加左侧边栏入场动画效果 */
         }
 
         /* 添加右侧边栏样式 */
         .sidebar-right {
             position: absolute;
-            right: 0;
+            right: -100px; /* 初始位置在屏幕右侧 */
             top: 0;
             bottom: 0;
             width: 100px;
             background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
             z-index: 1; /* 将右侧边栏置于顶部悬浮栏之下 */
+            transition: right 0.5s ease; /* 添加右侧边栏入场动画效果 */
         }
 
         /* 主要内容区样式 */
         .main-content {
             z-index: 0; /* 确保主要内容在左右侧边栏之上 */
             padding-top: 60px; /* 避免顶部悬浮栏遮挡内容 */
+            transition: opacity 1s ease; /* 添加主要内容区淡入动画效果 */
+            opacity: 0; /* 初始透明度为0，待动画触发后再显示 */
+        }
+
+        /* 当页面加载完成后，将标题移动到其正常位置，并显示主要内容区 */
+        body.loaded .top-navbar {
+            top: 0;
+        }
+
+        body.loaded .sidebar-left {
+            left: 0;
+        }
+
+        body.loaded .sidebar-right {
+            right: 0;
+        }
+
+        body.loaded .main-content {
+            opacity: 1;
         }
 
         /* 标题样式 */
@@ -90,11 +112,6 @@
             transition: transform 1s ease; /* 添加过渡效果，让标题平滑移动 */
             margin-top: 0; /* 添加顶部间距，使标题居中 */
             text-align: center; /* 居中标题 */
-        }
-
-        /* 当页面加载完成后，将标题移动到其正常位置 */
-        body.loaded h1 {
-            transform: translateY(0);
         }
 
         /* 按钮样式 */
@@ -161,7 +178,7 @@
             window.open('tencent://message/?uin=2361128935');
         }
 
-        /* 添加 "loaded" 类名到 body 元素，以触发按钮和标题的动画效果 */
+        /* 添加 "loaded" 类名到 body 元素，以触发入场动画效果 */
         window.onload = function () {
             document.body.classList.add('loaded');
         };
