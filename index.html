@@ -33,6 +33,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 2; /* 将顶部悬浮栏置于最顶层 */
         }
 
         .top-navbar h2 {
@@ -58,7 +59,7 @@
             bottom: 0;
             width: 100px;
             background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
-            z-index: 2; /* 将左侧边栏置于顶部悬浮栏之上 */
+            z-index: 1; /* 将左侧边栏置于顶部悬浮栏之下 */
         }
 
         /* 添加右侧边栏样式 */
@@ -69,12 +70,12 @@
             bottom: 0;
             width: 100px;
             background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
-            z-index: 2; /* 将右侧边栏置于顶部悬浮栏之上 */
+            z-index: 1; /* 将右侧边栏置于顶部悬浮栏之下 */
         }
 
         /* 主要内容区样式 */
         .main-content {
-            z-index: 1; /* 确保主要内容在侧边栏上方 */
+            z-index: 0; /* 确保主要内容在左右侧边栏之上 */
             padding-top: 60px; /* 避免顶部悬浮栏遮挡内容 */
         }
 
@@ -129,7 +130,7 @@
 <body>
     <!-- 顶部悬浮栏 -->
     <div class="top-navbar">
-        <h2> Xenos'下载站</h2>
+        <h2>Xenos'下载站</h2>
         <nav>
             <a href="#textures">材质包</a>
             <a href="#tools">XccX工具箱</a>
