@@ -17,7 +17,7 @@
             margin: 0;
             overflow: hidden; /* 隐藏溢出内容，以实现底部按钮的动画效果 */
             position: relative; /* 添加相对定位，侧边栏绝对定位的参考 */
-            background-image: url('back.jpg'); /* 替换为你自己的背景图片路径 */
+            background-image: url('back.jpg'); /* 使用正确的相对路径 */
             background-size: cover; /* 让背景图片填充整个页面 */
         }
 
@@ -46,6 +46,24 @@
             z-index: 1; /* 确保主要内容在侧边栏上方 */
         }
 
+        /* 标题样式 */
+        h1 {
+            font-family: "Helvetica", sans-serif;
+            font-size: 36px; /* 标题字体大小放大到36像素 */
+            color: #fff; /* 白色 */
+            text-shadow: 2px 2px 4px #000; /* 添加2像素的黑色边缘，水平和垂直偏移量都是2像素 */
+            transform: translateY(-100%); /* 将标题初始位置设在顶部 */
+            transition: transform 1s ease; /* 添加过渡效果，让标题平滑移动 */
+            margin-top: 0; /* 添加顶部间距，使标题居中 */
+            text-align: center; /* 居中标题 */
+        }
+
+        /* 当页面加载完成后，将标题移动到其正常位置 */
+        body.loaded h1 {
+            transform: translateY(0);
+        }
+
+        /* 按钮样式 */
         .button-container {
             display: flex;
             gap: 10px;
@@ -59,7 +77,6 @@
             transform: translateY(0);
         }
 
-        /* 按钮样式 */
         .button {
             margin: 10px;
             padding: 15px 30px;
@@ -74,23 +91,6 @@
         .button:hover {
             background-color: #0056b3;
         }
-
-        /* 标题样式 */
-        h1 {
-            font-family: "Helvetica", sans-serif;
-            color: #FFF; /* 深蓝色 */
-            transform: translateY(-100%); /* 将标题初始位置设在顶部 */
-            transition: transform 1s ease; /* 添加过渡效果，让标题平滑移动 */
-            margin-top: 0; /* 添加顶部间距，使标题居中 */
-            text-align: center; /* 居中标题 */
-        }
-
-        /* 当页面加载完成后，将标题移动到其正常位置 */
-        body.loaded h1 {
-            transform: translateY(0);
-        }
-
-        /* 其他样式... */
     </style>
 </head>
 <body>
