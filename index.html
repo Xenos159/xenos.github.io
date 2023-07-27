@@ -58,6 +58,7 @@
             bottom: 0;
             width: 100px;
             background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
+            z-index: 2; /* 将左侧边栏置于顶部悬浮栏之上 */
         }
 
         /* 添加右侧边栏样式 */
@@ -68,6 +69,7 @@
             bottom: 0;
             width: 100px;
             background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
+            z-index: 2; /* 将右侧边栏置于顶部悬浮栏之上 */
         }
 
         /* 主要内容区样式 */
@@ -127,7 +129,7 @@
 <body>
     <!-- 顶部悬浮栏 -->
     <div class="top-navbar">
-        <h2>Xenos'下载站</h2>
+        <h2> Xenos'下载站</h2>
         <nav>
             <a href="#textures">材质包</a>
             <a href="#tools">XccX工具箱</a>
