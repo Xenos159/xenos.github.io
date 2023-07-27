@@ -21,6 +21,35 @@
             background-size: cover; /* 让背景图片填充整个页面 */
         }
 
+        /* 添加顶部悬浮栏样式 */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 123, 255, 0.8); /* 蓝色半透明背景 */
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-navbar h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .top-navbar nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .top-navbar nav a:hover {
+            text-decoration: underline;
+        }
+
         /* 添加左侧边栏样式 */
         .sidebar-left {
             position: absolute;
@@ -44,6 +73,7 @@
         /* 主要内容区样式 */
         .main-content {
             z-index: 1; /* 确保主要内容在侧边栏上方 */
+            padding-top: 60px; /* 避免顶部悬浮栏遮挡内容 */
         }
 
         /* 标题样式 */
@@ -95,6 +125,16 @@
     </style>
 </head>
 <body>
+    <!-- 顶部悬浮栏 -->
+    <div class="top-navbar">
+        <h2>Xenos'下载站</h2>
+        <nav>
+            <a href="#textures">材质包</a>
+            <a href="#tools">XccX工具箱</a>
+            <a href="#contact">联系我们</a>
+        </nav>
+    </div>
+
     <!-- 左侧边栏 -->
     <div class="sidebar-left"></div>
 
