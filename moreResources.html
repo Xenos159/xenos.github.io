@@ -19,51 +19,200 @@
             background-size: cover; /* 让背景图片填充整个页面 */
         }
 
-        .main-content {
-            text-align: center;
-            padding: 20px;
+        /* 添加顶部悬浮栏样式 */
+        .top-navbar {
+            position: fixed;
+            top: -60px; /* 初始位置在屏幕上方 */
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 0, 0.8); /* 蓝色半透明背景 */
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2; /* 将顶部悬浮栏置于最顶层 */
+            transition: top 0.5s ease; /* 添加顶部悬浮栏展开动画效果 */
         }
 
+        .top-navbar h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .top-navbar nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .top-navbar nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* 添加左侧边栏样式 */
+        .sidebar-left {
+            position: absolute;
+            left: -100px; /* 初始位置在屏幕左侧 */
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
+            z-index: 1; /* 将左侧边栏置于顶部悬浮栏之下 */
+            transition: left 0.5s ease; /* 添加左侧边栏入场动画效果 */
+        }
+
+        /* 添加右侧边栏样式 */
+        .sidebar-right {
+            position: absolute;
+            right: -100px; /* 初始位置在屏幕右侧 */
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
+            z-index: 1; /* 将右侧边栏置于顶部悬浮栏之下 */
+            transition: right 0.5s ease; /* 添加右侧边栏入场动画效果 */
+        }
+
+        /* 主要内容区样式 */
+        .main-content {
+            z-index: 0; /* 确保主要内容在左右侧边栏之上 */
+            padding-top: 60px; /* 避免顶部悬浮栏遮挡内容 */
+            transition: opacity 1s ease; /* 添加主要内容区淡入动画效果 */
+            opacity: 0; /* 初始透明度为0，待动画触发后再显示 */
+        }
+
+        /* 标题样式 */
+        h1 {
+            font-family: "Helvetica", sans-serif;
+            font-size: 47px; /* 标题字体大小放大到36像素 */
+            color: #000; /* 白色 */
+            -webkit-text-fill-color: #000; /* 文本填充颜色透明，使得边框可见 */
+            -webkit-text-stroke: 2px #fff; /* 添加2像素宽的黑色边框 */
+            transform: translateY(-100%); /* 将标题初始位置设在顶部 */
+            transition: transform 1s ease; /* 添加过渡效果，让标题平滑移动 */
+            margin-top: 0; /* 添加顶部间距，使标题居中 */
+            text-align: center; /* 居中标题 */
+        }
+
+        /* 按钮样式 */
         .button-container {
             display: flex;
-            flex-direction: column; /* 将按钮容器中的元素垂直排列 */
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
             margin-top: 20px;
-            transform: translateY(-100%); /* 将按钮初始位置设在底部 (保持不变) */
-            transition: transform 1s ease; 
+            overflow: hidden; /* 隐藏超出容器的内容 */
         }
 
-        .button {
-            padding: 15px 30px;
-            background-color: #007BFF;
-            color: #fff;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
+        /* 添加新的CSS类用于实现选择效果 */
+        .selected {
+            opacity: 1;
         }
 
-        .button:hover {
-            background-color: #0056b3;
+        .not-selected {
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
+    <!-- 顶部悬浮栏 -->
+    <div class="top-navbar">
+        <h2>Xenos'下载站</h2>
+        <nav>
+            <a href="moreResources.html">更多资源</a>
+            <a href="games.html">自制游戏</a>
+            <a href="contact.html">联系我们</a>
+        </nav>
+    </div>
+
+    <!-- 左侧边栏 -->
+    <div class="sidebar-left"></div>
+
+    <!-- 右侧边栏 -->
+    <div class="sidebar-right"></div>
+
+    <!-- 主要内容区 -->
     <div class="main-content">
         <h1>我的世界更多资源网站</h1>
         <div class="button-container">
-            <a class="button" href="https://www.minecraft.net/" target="_blank">Minecraft 官方网站</a>
-            <a class="button" href="https://www.planetminecraft.com/" target="_blank">Planet Minecraft</a>
-            <a class="button" href="https://www.minecraftforum.net/" target="_blank">Minecraft Forum</a>
-            <a class="button" href="https://www.curseforge.com/minecraft" target="_blank">CurseForge</a>
-            <a class="button" href="https://minecraft-zh.gamepedia.com/Minecraft_Wiki" target="_blank">Minecraft Wiki</a>
-            <a class="button" href="https://www.minecraftmaps.com/" target="_blank">Minecraft Maps</a>
-            <a class="button" href="https://www.minecrafttexturepacks.com/" target="_blank">Minecraft Texture Packs</a>
-            <a class="button" href="https://www.minecraft-seeds.net/" target="_blank">Minecraft Seeds</a>
-            <a class="button" href="https://www.minecraftmods.com/" target="_blank">Minecraft Mods</a>
-            <a class="button" href="https://www.minecraftskins.com/" target="_blank">Minecraft Skins</a>
+            <button class="button selected" onclick="window.open('https://www.minecraft.net/', '_blank')">Minecraft 官方网站</button>
+            <button class="button selected" onclick="window.open('https://www.planetminecraft.com/', '_blank')">Planet Minecraft</button>
+            <button class="button selected" onclick="window.open('https://www.minecraftforum.net/', '_blank')">Minecraft Forum</button>
+            <button class="button not-selected" onclick="window.open('https://www.curseforge.com/minecraft', '_blank')">CurseForge</button>
+            <button class="button not-selected" onclick="window.open('https://minecraft-zh.gamepedia.com/Minecraft_Wiki', '_blank')">Minecraft Wiki</button>
+            <button class="button not-selected" onclick="window.open('https://www.minecraftmaps.com/', '_blank')">Minecraft Maps</button>
+            <button class="button not-selected" onclick="window.open('https://www.minecrafttexturepacks.com/', '_blank')">Minecraft Texture Packs</button>
+            <button class="button not-selected" onclick="window.open('https://www.minecraft-seeds.net/', '_blank')">Minecraft Seeds</button>
+            <button class="button not-selected" onclick="window.open('https://www.minecraftmods.com/', '_blank')">Minecraft Mods</button>
+            <button class="button not-selected" onclick="window.open('https://www.minecraftskins.com/', '_blank')">Minecraft Skins</button>
         </div>
     </div>
+
+    <!-- JavaScript 代码 -->
+    <script>
+        // 添加选择效果和调节闹钟效果
+        const buttonContainer = document.querySelector('.button-container');
+        const buttons = document.querySelectorAll('.button');
+        const visibleButtons = 3;
+        let startIndex = 0;
+
+        // 处理鼠标滚轮事件
+        buttonContainer.addEventListener('wheel', (event) => {
+            if (event.deltaY > 0) {
+                // 向下滚动
+                startIndex = Math.min(startIndex + 1, buttons.length - visibleButtons);
+            } else {
+                // 向上滚动
+                startIndex = Math.max(startIndex - 1, 0);
+            }
+            updateButtonStates();
+        });
+
+        // 处理拖拽事件
+        let isDragging = false;
+        let startY = 0;
+        buttonContainer.addEventListener('mousedown', (event) => {
+            isDragging = true;
+            startY = event.clientY;
+        });
+
+        buttonContainer.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        buttonContainer.addEventListener('mousemove', (event) => {
+            if (isDragging) {
+                const deltaY = event.clientY - startY;
+                if (deltaY > 0) {
+                    // 向下拖拽
+                    startIndex = Math.min(startIndex + 1, buttons.length - visibleButtons);
+                } else {
+                    // 向上拖拽
+                    startIndex = Math.max(startIndex - 1, 0);
+                }
+                startY = event.clientY;
+                updateButtonStates();
+            }
+        });
+
+        // 更新按钮状态
+        function updateButtonStates() {
+            for (let i = 0; i < buttons.length; i++) {
+                if (i < startIndex || i >= startIndex + visibleButtons) {
+                    buttons[i].classList.remove('selected');
+                    buttons[i].classList.add('not-selected');
+                } else {
+                    buttons[i].classList.remove('not-selected');
+                    buttons[i].classList.add('selected');
+                }
+            }
+        }
+
+        // 添加 "loaded" 类名到 body 元素，以触发入场动画效果 (保持不变)
+        window.onload = function () {
+            document.body.classList.add('loaded');
+        };
+    </script>
 </body>
 </html>
