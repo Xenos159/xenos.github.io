@@ -26,46 +26,53 @@
             background-position: center -5px;
         }
 
-        h1 {
-            text-align: center;
-            color: #ffffff;
-            margin-top: 100px;
-            font-size: 3em;
-            text-shadow: 2px 2px 0 black;
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+            padding: 0 20px; /* 左右内边距 */
         }
 
-        h2 {
-            text-align: center;
+        .logo {
+            display: inline-block;
+            height: 64px;
+            margin-right: 20px;
+        }
+
+        h1 {
             color: #ffffff;
-            margin-top: 30px;
             font-size: 2em;
             text-shadow: 2px 2px 0 black;
+            margin: 0;
+            padding: 0;
         }
 
-        .buttons {
-            text-align: center;
-            margin-top: 50px;
+        .links {
+            display: flex;
         }
 
-        .button {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: #007BFF;
+        .nav-link {
             color: #ffffff;
-            border-radius: 20px;
             text-decoration: none;
-            margin: 10px;
-            font-size: 1.6em;
-            font-weight: bold;
+            margin-left: 20px;
+            font-size: 1.2em;
         }
 
     </style>
 </head>
 <body>
     <div class="topbar"></div> <!-- 顶部悬浮栏 -->
-    <h1>XenosMC</h1>
-    <h2>——为每一个热爱者</h2>
-    <div class="buttons">
+    <div class="container">
+        <img src="进化的滑稽.ico" alt="滑稽图标" class="logo">
+        <h1>XenosMC</h1>
+        <div class="links">
+            <a href="#" class="nav-link">关于我们</a>
+            <a href="#" class="nav-link">赞助作者</a>
+        </div>
+    </div>
+    <h2 style="text-align: center; margin-top: 100px; color: #ffffff; font-size: 3em; text-shadow: 2px 2px 0 black;">——为每一个热爱者</h2>
+    <div class="buttons" style="text-align: center; margin-top: 50px;">
         <a href="#" class="button">按钮1</a>
         <a href="#" class="button">按钮2</a>
         <a href="#" class="button">按钮3</a>
