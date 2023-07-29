@@ -35,28 +35,31 @@
             font-size: 2em;
             text-shadow: 2px 2px 0 black;
             z-index: 1; /* 使顶部悬浮栏处于最上层 */
+            transition: transform 1s ease; /* 添加悬浮栏动画 */
         }
 
         .floating-bar {
             position: fixed;
-            bottom: 0;
+            top: 0;
             left: 0;
             width: 100%;
-            height: 0; /* 初始高度为0，即不可见 */
+            height: 64px; /* 初始高度与顶部悬浮栏相同 */
             background-color: rgba(0, 0, 0, 0.8);
             color: #fff;
             font-size: 1.5em;
             text-align: center;
-            padding: 20px;
+            line-height: 64px;
+            padding: 0 20px;
             box-sizing: border-box;
-            overflow: hidden;
             z-index: 2; /* 使悬浮栏处于顶部悬浮栏之上 */
-            transition: height 1s ease; /* 添加高度动画效果 */
+            transform: translateY(-100%); /* 初始位置在顶部之上 */
+            transition: transform 1s ease; /* 添加悬浮栏动画 */
         }
 
         .container {
             text-align: center;
             margin-top: 150px; /* 调整标题和按钮距离悬浮栏的间距 */
+            transition: transform 1s ease; /* 添加标题和按钮动画 */
         }
 
         h1 {
@@ -65,6 +68,7 @@
             text-shadow: 2px 2px 0 black;
             margin: 0;
             padding: 0;
+            transform: translateY(100%); /* 初始位置在底部之下 */
             transition: transform 1s ease; /* 添加标题动画 */
         }
 
@@ -74,12 +78,15 @@
             text-shadow: 2px 2px 0 black;
             margin: 0;
             padding: 0;
+            transform: translateY(100%); /* 初始位置在底部之下 */
             transition: transform 1s ease; /* 添加副标题动画 */
         }
 
         .buttons {
             text-align: center;
             margin-top: 50px;
+            opacity: 0; /* 初始透明度为0，隐藏按钮 */
+            transition: opacity 1s ease; /* 添加按钮动画 */
         }
 
         .button {
@@ -129,58 +136,39 @@
             background-color: #0056b3;
         }
 
-        /* 标题动画 */
-        .main-title {
-            transition: transform 1s ease;
-        }
-
         /* 返回按钮动画 */
         .back-button {
             transition: transform 1s ease;
         }
 
-        /* 鼠标悬停时标题和返回按钮动画 */
-        .main-content:hover .main-title {
+        /* 鼠标悬停时标题、副标题和返回按钮动画 */
+        .main-content:hover .topbar {
             transform: translateY(-100%);
         }
 
+        .main-content:hover h1,
+        .main-content:hover h2,
         .main-content:hover .back-button {
-            transform: translateY(-100%);
+            transform: translateY(0);
         }
 
         /* 悬浮栏展开动画 */
         .floating-bar.visible {
-            height: 100px; /* 展开高度 */
+            transform: translateY(0);
         }
-    </style>
-</head>
-<body>
-    <div class="topbar"><strong>XenosMC</strong></div> <!-- 顶部悬浮栏 -->
-    <div class="floating-bar">
-        <!-- 这里放悬浮栏内容 -->
-        <p>XenosMC</p>
-    </div>
-    <div class="container">
-        <h1 class="main-title"><strong>Xenos MC</strong></h1>
-        <h2><em>— —为每一个热爱者</em></h2>
-        <div class="buttons">
-            <a href="L.html" class="button">Launchers</a>
-            <a href="Res.html" class="button">资源</a>
-            <a href="moreResources.html" class="button">网址、服务器</a>
-            <a href="games.html" class="button">游戏</a>
-        </div>
-    </div>
-    <div class="links">
-        <a href="#" class="nav-link">关于我们</a>
-        <a href="#" class="nav-link">赞助作者</a>
-    </div>
-    <script>
-        // 当页面加载完成后，添加展开悬浮栏的动画效果
+
+        /* 页面加载完成后，显示标题和按钮动画 */
         window.onload = function () {
+            const container = document.querySelector('.container');
+            const buttons = document.querySelectorAll('.button');
             const floatingBar = document.querySelector('.floating-bar');
+            container.style.transform = 'translateY(0)';
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].style.opacity = 1;
+            }
             setTimeout(() => {
                 floatingBar.classList.add('visible');
-            }, 1000); // 延迟1秒后展开悬浮栏
+            }, 1000);
         };
     </script>
 </body>
