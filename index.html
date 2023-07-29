@@ -19,7 +19,7 @@
         .topbar {
             position: fixed;
             top: 0;
-            left: 0;
+            right: 0; /* 调整返回键位置 */
             width: 100%;
             height: 64px;
             background-image: url("title.png");
@@ -47,6 +47,8 @@
             text-shadow: 2px 2px 0 black;
             margin: 0;
             padding: 0;
+            transform: translateY(-100%); /* 初始位置，标题在顶部之外 */
+            transition: transform 1s ease; /* 添加标题的入场动画 */
         }
 
         h2 {
@@ -72,30 +74,12 @@
             margin: 10px;
             font-size: 1.6em;
             font-weight: bold;
-            transition: background-color 0.2s ease, transform 0.2s ease; /* 添加颜色和大小变化动画 */
+            /* 移除按钮的过渡效果 */
         }
 
         /* 鼠标悬停效果 */
         .button:hover {
             background-color: #0056b3;
-        }
-
-        /* 点击动画 */
-        .button:active {
-            animation: clickAnim 0.2s ease;
-        }
-
-        /* 点击动画的@keyframes */
-        @keyframes clickAnim {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(0.95);
-            }
-            100% {
-                transform: scale(1);
-            }
         }
 
         .links {
@@ -110,35 +94,13 @@
             font-size: 1.2em;
         }
 
-        /* 新增的入场动画效果 */
-        .container {
-            opacity: 0;
-        }
-
-        .button {
-            /* 入场时按钮从下向上淡出 */
-            animation: fadeInUp 1s forwards;
-        }
-
-        .nav-link {
-            /* 入场时导航链接从下向上淡出 */
-            animation: fadeInUp 1s forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="topbar"><strong>XenosMC</strong></div> <!-- 顶部悬浮栏 -->
+    <div class="topbar">
+        <a href="#" class="nav-link">返回</a> <!-- 返回键在右上角 -->
+        <strong>XenosMC</strong>
+    </div> <!-- 顶部悬浮栏 -->
     <div class="container">
         <h1><strong>Xenos MC</strong></h1>
         <h2><em>— —为每一个热爱者</em></h2>
@@ -153,5 +115,16 @@
         <a href="#" class="nav-link">关于我们</a>
         <a href="#" class="nav-link">赞助作者</a>
     </div>
+
+    <script>
+        // 入场动画
+        window.onload = function () {
+            document.body.classList.add('loaded');
+            // 页面加载完成后，延迟一点时间再显示标题，以便过渡效果生效
+            setTimeout(() => {
+                document.querySelector('h1').style.transform = 'translateY(0)';
+            }, 200);
+        };
+    </script>
 </body>
 </html>
