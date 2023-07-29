@@ -1,187 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Xenos'下载站-MinecraftBH159，byFYC</title>
-    <link rel="icon" type="image/x-icon" href="进化的滑稽.ico">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XenosMC</title>
+    <link rel="shortcut icon" href="进化的滑稽.ico">
     <style>
         body {
-            font-family: "Arial", sans-serif;
-            color: #333; 
+            background-image: url("back.jpg");
+            background-size: cover;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            flex-direction: column; 
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden; /* 隐藏溢出内容，以实现底部按钮的动画效果 */
-            position: relative; /* 添加相对定位，侧边栏绝对定位的参考 */
-            background-image: url('back.jpg'); /* 使用正确的相对路径 */
-            background-size: cover; /* 让背景图片填充整个页面 */
+            font-family: Arial, sans-serif;
         }
 
-        /* 添加顶部悬浮栏样式 */
-        .top-navbar {
-            position: fixed;
-            top: -60px; /* 初始位置在屏幕上方 */
-            left: 0;
-            width: 100%;
-            background-color: rgba(144, 238, 144, 0.8); /* 蓝色半透明背景 */
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 2; /* 将顶部悬浮栏置于最顶层 */
-            transition: top 0.5s ease; /* 添加顶部悬浮栏展开动画效果 */
-        }
-
-        .top-navbar h2 {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        .top-navbar nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        .top-navbar nav a:hover {
-            text-decoration: underline;
-        }
-
-        /* 添加左侧边栏样式 */
-        .sidebar-left {
-            position: absolute;
-            left: -100px; /* 初始位置在屏幕左侧 */
-            top: 0;
-            bottom: 0;
-            width: 100px;
-            background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
-            z-index: 1; /* 将左侧边栏置于顶部悬浮栏之下 */
-            transition: left 0.5s ease; /* 添加左侧边栏入场动画效果 */
-        }
-
-        /* 添加右侧边栏样式 */
-        .sidebar-right {
-            position: absolute;
-            right: -100px; /* 初始位置在屏幕右侧 */
-            top: 0;
-            bottom: 0;
-            width: 100px;
-            background-color: rgba(0, 123, 255, 0.7); /* 蓝色半透明背景 */
-            z-index: 1; /* 将右侧边栏置于顶部悬浮栏之下 */
-            transition: right 0.5s ease; /* 添加右侧边栏入场动画效果 */
-        }
-
-        /* 主要内容区样式 */
-        .main-content {
-            z-index: 0; /* 确保主要内容在左右侧边栏之上 */
-            padding-top: 60px; /* 避免顶部悬浮栏遮挡内容 */
-            transition: opacity 1s ease; /* 添加主要内容区淡入动画效果 */
-            opacity: 0; /* 初始透明度为0，待动画触发后再显示 */
-        }
-
-        /* 当页面加载完成后，将标题移动到其正常位置，并显示主要内容区 */
-        body.loaded .top-navbar {
-            top: 0;
-        }
-
-        body.loaded .sidebar-left {
-            left: 0;
-        }
-
-        body.loaded .sidebar-right {
-            right: 0;
-        }
-
-        body.loaded .main-content {
-            opacity: 1;
-        }
-
-        /* 标题样式 */
         h1 {
-            font-family: "Helvetica", sans-serif;
-            font-size: 47px; /* 标题字体大小放大到36像素 */
-            color: #000; /* 白色 */
-            -webkit-text-fill-color: #000; /* 文本填充颜色透明，使得边框可见 */
-            -webkit-text-stroke: 2px #fff; /* 添加2像素宽的黑色边框 */
-            transform: translateY(-100%); /* 将标题初始位置设在顶部 */
-            transition: transform 1s ease; /* 添加过渡效果，让标题平滑移动 */
-            margin-top: 0; /* 添加顶部间距，使标题居中 */
-            text-align: center; /* 居中标题 */
+            text-align: center;
+            color: #ffffff;
+            margin-top: 100px;
         }
 
-        /* 按钮样式 */
-        .button-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            transform: translateY(100%); /* 将按钮初始位置设在底部 */
-            transition: transform 1s ease; /* 添加过渡效果，让按钮平滑移动 */
+        h2 {
+            text-align: center;
+            color: #ffffff;
+            margin-top: 30px;
         }
 
-        /* 当页面加载完成后，将按钮移动到其正常位置 */
-        body.loaded .button-container {
-            transform: translateY(0);
+        .buttons {
+            text-align: center;
+            margin-top: 50px;
         }
 
         .button {
-            margin: 10px;
+            display: inline-block;
             padding: 15px 30px;
             background-color: #007BFF;
-            color: #fff;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            color: #ffffff;
+            border-radius: 20px;
+            text-decoration: none;
+            margin: 10px;
+            font-weight: bold;
         }
 
-        .button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
-    <!-- 顶部悬浮栏 -->
-    <div class="top-navbar">
-        <h2>Xenos'下载站</h2>
-        <nav>
-            <a href="moreResources.html">更多资源</a>
-            <a href="games.html">自制游戏</a>
-            <a href="contact.html">联系我们</a>
-        </nav>
+    <h1>XenosMC</h1>
+    <h2>——为每一个热爱者</h2>
+    <div class="buttons">
+        <a href="#" class="button">按钮1</a>
+        <a href="#" class="button">按钮2</a>
+        <a href="#" class="button">按钮3</a>
+        <a href="#" class="button">按钮4</a>
     </div>
-
-    <!-- 左侧边栏 -->
-    <div class="sidebar-left"></div>
-
-    <!-- 右侧边栏 -->
-    <div class="sidebar-right"></div>
-
-    <!-- 主要内容区 -->
-    <div class="main-content">
-        <h1>Xeons 下载站 by MinecraftBH-1</h1>
-        <div class="button-container">
-            <button class="button" onclick="window.location.href = 'https://space.bilibili.com/3493124221438600?spm_id_from=333.1007.0.0';">Bilibili主页</button>
-            <button class="button" onclick="window.location.href = 'https://wwtq.lanzouy.com/ipa6Y13k6xih';">材质包</button>
-            <button class="button" onclick="window.location.href = 'https://wwtq.lanzouy.com/iAH3713kc6ud';">XccX工具箱（更新中）</button>
-            <button class="button" onclick="openQQ()">QQ: 2361128935</button>
-        </div>
-    </div>
-
-    <!-- JavaScript 代码 -->
-    <script>
-        function openQQ() {
-            window.open('tencent://message/?uin=2361128935');
-        }
-
-        /* 添加 "loaded" 类名到 body 元素，以触发入场动画效果 */
-        window.onload = function () {
-            document.body.classList.add('loaded');
-        };
-    </script>
 </body>
 </html>
