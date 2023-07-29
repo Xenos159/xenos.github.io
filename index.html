@@ -10,7 +10,7 @@
         body {
             margin: 0;
             padding-top: 0; /* 调整顶部悬浮栏的距离 */
-            background-image: url("back.jpg");
+            background-image: url("back.png");
             background-size: cover;
             background-position: center top;
             font-family: Arial, sans-serif;
@@ -58,6 +58,8 @@
         .container {
             text-align: center;
             margin-top: 150px;
+            transform: translateY(-100%);
+            transition: transform 1s ease;
         }
 
         h1, h2 {
@@ -66,6 +68,8 @@
             text-shadow: 2px 2px 0 black;
             margin: 0;
             padding: 0;
+            transform: translateY(100%);
+            transition: transform 1s ease;
         }
 
         .buttons {
@@ -121,7 +125,7 @@
 </head>
 <body>
     <div class="topbar"><strong>XenosMC</strong></div> <!-- 顶部悬浮栏 -->
-    <div class="floating-bar">XenosMC</div> <!-- 悬浮栏 -->
+    <div class="floating-bar">顶部悬浮栏内容</div> <!-- 悬浮栏 -->
     <div class="container main-content">
         <h1><strong>Xenos MC</strong></h1>
         <h2><em>— —为每一个热爱者</em></h2>
@@ -137,12 +141,14 @@
         <a href="#" class="nav-link">赞助作者</a>
     </div>
     <script>
+        const topbar = document.querySelector('.topbar');
         const container = document.querySelector('.container');
         const buttons = document.querySelectorAll('.button');
         const floatingBar = document.querySelector('.floating-bar');
 
         // 页面加载完成后，显示标题和按钮动画
         window.onload = function () {
+            topbar.style.transform = 'translateY(0)';
             container.style.transform = 'translateY(0)';
             for (let i = 0; i < buttons.length; i++) {
                 buttons[i].style.opacity = 1;
@@ -154,12 +160,14 @@
 
         // 按钮动画
         buttons.forEach(button => {
-            button.addEventListener('mouseenter', () => {
+            button.addEventListener('mouseover', () => {
                 button.style.backgroundColor = '#0056b3';
+                button.style.transform = 'translateZ(20px)';
             });
 
-            button.addEventListener('mouseleave', () => {
+            button.addEventListener('mouseout', () => {
                 button.style.backgroundColor = '#007BFF';
+                button.style.transform = 'translateZ(0)';
             });
         });
     </script>
