@@ -21,8 +21,8 @@
         .topbar {
             position: fixed;
             top: 0;
-            left: 0;
-            width: 100%;
+            right: 0; /* 修改位置，将返回按钮放在右上角 */
+            width: 100px; /* 修改宽度，以适应返回按钮 */
             height: 64px;
             background-image: url("title.png");
             background-size: cover;
@@ -221,6 +221,7 @@
             }
         }
 
+        // 新增入场动画
         window.onload = function () {
             document.body.classList.add('loaded');
             // 页面加载完成后，延迟一点时间再显示按钮，以便过渡效果生效
@@ -228,7 +229,13 @@
                 for (let i = 0; i < visibleButtons; i++) {
                     buttons[i].style.opacity = 1;
                 }
+                document.querySelector('h1').style.transform = 'translateY(0)';
             }, 200);
+
+            // 标题反向入场动画
+            setTimeout(() => {
+                document.querySelector('h1').style.transition = 'transform 1s ease';
+            }, 1200);
         };
     </script>
 </body>
