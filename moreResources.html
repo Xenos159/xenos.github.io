@@ -65,15 +65,8 @@
             justify-content: center;
             margin-top: 20px;
             overflow: hidden;
-        }
-
-        .selected {
-            opacity: 1;
-        }
-
-        .not-selected {
-            opacity: 0.3;
-            display: none;
+            /* 添加景深效果 */
+            perspective: 1000px;
         }
 
         .button {
@@ -85,12 +78,21 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: opacity 0.5s ease;
+            transition: transform 0.5s ease; /* 添加按钮平移过渡效果 */
+            transform: translateZ(0); /* 初始位置 */
         }
 
         .button:hover {
             background-color: #0056b3;
+            transform: translateZ(20px); /* 按钮悬停时的平移位置 */
         }
+
+        .subtitle {
+            text-align: center;
+            margin-top: 10px;
+            color: #888;
+        }
+        
     </style>
 </head>
 <body>
@@ -100,9 +102,6 @@
             <a href="games.html">自制游戏</a>
         </nav>
     </div>
-
-    <div class="sidebar-left"></div>
-    <div class="sidebar-right"></div>
 
     <div class="main-content">
         <h1>我的世界更多资源网站</h1>
@@ -162,6 +161,7 @@
             <button class="button not-selected" onclick="window.open('https://wiki.vg/Mojang_API', '_blank')">Mojang API (Minecraft服务官方API)</button>
             <!-- 网站按钮结束 -->
         </div>
+        <div class="subtitle">转动鼠标滚轮来浏览更多！</div>
     </div>
 
     <script>
