@@ -18,57 +18,27 @@
             background-size: cover;
         }
 
-        .top-navbar {
+        .topbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 0, 0.8);
-            color: #fff;
-            padding: 10px;
+            height: 64px;
+            background-image: url("title.png");
+            background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 2;
-            transition: top 0.5s ease;
+            padding: 0 20px; /* 左右内边距 */
+            color: #ffffff;
+            text-align: center;
+            line-height: 64px;
+            font-size: 2em;
+            text-shadow: 2px 2px 0 black;
         }
 
-        .top-navbar h2 {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        .top-navbar nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        .top-navbar nav a:hover {
-            text-decoration: underline;
-        }
-
-        .sidebar-left {
-            position: absolute;
-            left: -100px;
-            top: 0;
-            bottom: 0;
-            width: 100px;
-            background-color: rgba(0, 123, 255, 0.7);
-            z-index: 1;
-            transition: left 0.5s ease;
-        }
-
-        .sidebar-right {
-            position: absolute;
-            right: -100px;
-            top: 0;
-            bottom: 0;
-            width: 100px;
-            background-color: rgba(0, 123, 255, 0.7);
-            z-index: 1;
-            transition: right 0.5s ease;
-        }
+        
 
         .main-content {
             z-index: 0;
@@ -127,11 +97,9 @@
 </head>
 <body>
     <div class="top-navbar">
-        <h2>Xenos'下载站</h2>
+        <h2>Xenos MC</h2>
         <nav>
-            <a href="moreResources.html">更多资源</a>
             <a href="games.html">自制游戏</a>
-            <a href="contact.html">联系我们</a>
         </nav>
     </div>
 
