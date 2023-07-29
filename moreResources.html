@@ -78,8 +78,17 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.5s ease; /* 添加按钮平移过渡效果 */
+            transition: transform 0.5s ease, opacity 0.5s ease; /* 添加按钮平移过渡效果 */
             transform: translateZ(0); /* 初始位置 */
+            opacity: 0;
+        }
+
+        .selected {
+            opacity: 1;
+        }
+
+        .not-selected {
+            display: none;
         }
 
         .button:hover {
@@ -110,8 +119,6 @@
             <button class="button selected" onclick="window.open('https://www.minecraft.net/', '_blank')">官方"Minecraft"网站</button>
             <button class="button selected" onclick="window.open('https://minecraft.gamepedia.com/Minecraft_Wiki', '_blank')">Minecraft Wiki</button>
             <button class="button not-selected" onclick="window.open('https://www.curseforge.com/minecraft', '_blank')">CurseForge</button>
-            <!-- 更多网站按钮 ... -->
-            <!-- 以下为新增的按钮，共计50个 -->
             <button class="button not-selected" onclick="window.open('https://www.planetminecraft.com/', '_blank')">Planet Minecraft</button>
             <button class="button not-selected" onclick="window.open('https://www.minecraftforum.net/', '_blank')">Minecraft Forum</button>
             <button class="button not-selected" onclick="window.open('https://www.reddit.com/r/Minecraft', '_blank')">Minecraft Reddit</button>
@@ -159,7 +166,6 @@
             <button class="button not-selected" onclick="window.open('https://www.minecraft.tools/', '_blank')">Minecraft工具</button>
             <button class="button not-selected" onclick="window.open('https://mcsrvstatus.net/', '_blank')">Minecraft服务器状态检查</button>
             <button class="button not-selected" onclick="window.open('https://wiki.vg/Mojang_API', '_blank')">Mojang API (Minecraft服务官方API)</button>
-            <!-- 网站按钮结束 -->
         </div>
         <div class="subtitle">转动鼠标滚轮来浏览更多！</div>
     </div>
@@ -217,6 +223,12 @@
 
         window.onload = function () {
             document.body.classList.add('loaded');
+            // 页面加载完成后，延迟一点时间再显示按钮，以便过渡效果生效
+            setTimeout(() => {
+                for (let i = 0; i < visibleButtons; i++) {
+                    buttons[i].style.opacity = 1;
+                }
+            }, 200);
         };
     </script>
 </body>
