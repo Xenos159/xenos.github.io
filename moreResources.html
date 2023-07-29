@@ -21,8 +21,8 @@
         .topbar {
             position: fixed;
             top: 0;
-            right: 0; /* 修改位置，将返回按钮放在右上角 */
-            width: 100px; /* 修改宽度，以适应返回按钮 */
+            right: 0; /* 调整返回键位置 */
+            width: 100%;
             height: 64px;
             background-image: url("title.png");
             background-size: cover;
@@ -30,7 +30,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 20px; /* 左右内边距 */
             color: #ffffff;
             text-align: center;
             line-height: 64px;
@@ -69,7 +69,7 @@
             perspective: 1000px;
         }
 
-        .button {
+                .button {
             margin: 10px;
             padding: 15px 30px;
             background-color: #007BFF;
@@ -118,7 +118,7 @@
             <!-- 网站按钮开始 -->
             <button class="button selected" onclick="window.open('https://www.minecraft.net/', '_blank')">官方"Minecraft"网站</button>
             <button class="button selected" onclick="window.open('https://minecraft.gamepedia.com/Minecraft_Wiki', '_blank')">Minecraft Wiki</button>
-            <button class="button not-selected" onclick="window.open('https://www.curseforge.com/minecraft', '_blank')">CurseForge</button>
+            <!-- 其他按钮省略... -->
             <button class="button not-selected" onclick="window.open('https://www.planetminecraft.com/', '_blank')">Planet Minecraft</button>
             <button class="button not-selected" onclick="window.open('https://www.minecraftforum.net/', '_blank')">Minecraft Forum</button>
             <button class="button not-selected" onclick="window.open('https://www.reddit.com/r/Minecraft', '_blank')">Minecraft Reddit</button>
@@ -221,7 +221,6 @@
             }
         }
 
-        // 新增入场动画
         window.onload = function () {
             document.body.classList.add('loaded');
             // 页面加载完成后，延迟一点时间再显示按钮，以便过渡效果生效
@@ -229,14 +228,9 @@
                 for (let i = 0; i < visibleButtons; i++) {
                     buttons[i].style.opacity = 1;
                 }
-                document.querySelector('h1').style.transform = 'translateY(0)';
             }, 200);
-
-            // 标题反向入场动画
-            setTimeout(() => {
-                document.querySelector('h1').style.transition = 'transform 1s ease';
-            }, 1200);
         };
     </script>
 </body>
 </html>
+
