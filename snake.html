@@ -58,18 +58,6 @@
   let score = 0;
   
   function updateGame() {
-    const deltaX = foodX - snakeX;
-    const deltaY = foodY - snakeY;
-    const angle = Math.atan2(deltaY, deltaX);
-    const speed = 4; // 调整移动速度
-    snakeX += Math.cos(angle) * speed;
-    snakeY += Math.sin(angle) * speed;
-    
-    if (snakeX < 0) snakeX = 380;
-    if (snakeX > 380) snakeX = 0;
-    if (snakeY < 0) snakeY = 380;
-    if (snakeY > 380) snakeY = 0;
-    
     snake.style.left = snakeX + "px";
     snake.style.top = snakeY + "px";
     
@@ -99,9 +87,9 @@
     const angle = Math.atan2(deltaY, deltaX);
     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     
-    const sensitivity = 0.15; // 调整灵敏度
-    snakeX += Math.cos(angle) * distance * sensitivity;
-    snakeY += Math.sin(angle) * distance * sensitivity;
+    const speed = 2; // 调整移动速度
+    snakeX += Math.cos(angle) * speed;
+    snakeY += Math.sin(angle) * speed;
   });
 </script>
 </body>
