@@ -61,8 +61,9 @@
   function moveSnake() {
     const newHead = { ...snake[0] };
 
-    newHead.x += Math.sign(mouseX - newHead.x * gridSize);
-    newHead.y += Math.sign(mouseY - newHead.y * gridSize);
+    const angle = Math.atan2(mouseY - newHead.y * gridSize, mouseX - newHead.x * gridSize);
+    newHead.x += Math.cos(angle);
+    newHead.y += Math.sin(angle);
 
     snake.unshift(newHead);
 
