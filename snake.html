@@ -43,9 +43,13 @@
     ctx.arc(joystickPosition.x, joystickPosition.y, joystickRadius, 0, Math.PI * 2);
     ctx.stroke();
 
+    const angle = Math.atan2(mouseY - joystickPosition.y, mouseX - joystickPosition.x);
+    const joystickX = joystickPosition.x + Math.cos(angle) * (joystickRadius - 10);
+    const joystickY = joystickPosition.y + Math.sin(angle) * (joystickRadius - 10);
+
     ctx.fillStyle = "black";
     ctx.beginPath();
-    ctx.arc(mouseX, mouseY, 10, 0, Math.PI * 2);
+    ctx.arc(joystickX, joystickY, 10, 0, Math.PI * 2);
     ctx.fill();
   }
 
@@ -136,6 +140,14 @@
     const canvasRect = canvas.getBoundingClientRect();
     mouseX = event.clientX - canvasRect.left;
     mouseY = event.clientY - canvasRect.top;
+
+    // 限制鼠标位置在手柄圆圈内
+    const distance = Math.sqrt((mouseX - joystickPosition.x) ** 2 + (mouseY - joystickPosition.y) ** 2);
+    if (distance > joystickRadius) {
+      const angle = Math.atan2(mouseY - joystickPosition.y, mouseX - joystickPosition.x);
+      mouseX = joystickPosition.x + Math.cos(angle) * joystickRadius;
+      mouseY = joystickPosition.y + Math.sin(angle) * joystickRadius;
+    }
   }
 
   function startGame() {
@@ -143,7 +155,7 @@
     gameInterval = setInterval(() => {
       moveSnake();
       checkCollision();
-    }, 1000 / 15);
+    }, 1000 / 60); // 提高到60帧
   }
 
   startGame();
