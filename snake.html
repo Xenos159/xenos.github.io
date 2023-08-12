@@ -8,11 +8,14 @@
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: white; /* 将背景改为白色 */
+    background-image: url("back.jpg");
+    background-size: cover;
+    background-position: center top;
     font-family: Arial, sans-serif;
   }
-  canvas {
+  #gameCanvas {
     border: 1px solid black;
+    background-color: white; /* 游戏区域的背景颜色改为白色 */
   }
 </style>
 </head>
@@ -25,10 +28,10 @@
   const gridSize = 20;
   let snake = [{ x: 2, y: 2 }];
   let food = [];
-  let direction = "right";
   let gameInterval;
   let score = 0;
-  let foodCount = 1;
+
+  canvas.addEventListener("mousemove", handleMouseMove);
 
   function drawSnake() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -58,33 +61,16 @@
   function moveSnake() {
     const newHead = { ...snake[0] };
 
-    switch (direction) {
-      case "up":
-        newHead.y -= 1;
-        break;
-      case "down":
-        newHead.y += 1;
-        break;
-      case "left":
-        newHead.x -= 1;
-        break;
-      case "right":
-        newHead.x += 1;
-        break;
-    }
+    newHead.x += Math.sign(mouseX - newHead.x * gridSize);
+    newHead.y += Math.sign(mouseY - newHead.y * gridSize);
 
     snake.unshift(newHead);
 
-    for (let i = 0; i < food.length; i++) {
-      if (newHead.x === food[i].x && newHead.y === food[i].y) {
-        score += 1;
-        food.splice(i, 1);
-        generateFood();
-        break;
-      }
-    }
-
-    if (snake.length > score + 1) {
+    if (food.some(f => f.x === newHead.x && f.y === newHead.y)) {
+      score += 1;
+      food = food.filter(f => f.x !== newHead.x || f.y !== newHead.y);
+      generateFood();
+    } else if (snake.length > score + 1) {
       snake.pop();
     }
 
@@ -94,16 +80,12 @@
   }
 
   function generateFood() {
-    if (food.length < foodCount) {
+    if (food.length < 3) {
       const newFood = {
         x: Math.floor(Math.random() * (canvas.width / gridSize)),
         y: Math.floor(Math.random() * (canvas.height / gridSize))
       };
       food.push(newFood);
-    }
-
-    if (score >= 10) {
-      foodCount = Math.floor(score / 10) + 1;
     }
   }
 
@@ -129,25 +111,16 @@
     }
   }
 
-  function handleKeyPress(event) {
-    switch (event.key) {
-      case "ArrowUp":
-        direction = "up";
-        break;
-      case "ArrowDown":
-        direction = "down";
-        break;
-      case "ArrowLeft":
-        direction = "left";
-        break;
-      case "ArrowRight":
-        direction = "right";
-        break;
-    }
+  let mouseX = canvas.width / 2;
+  let mouseY = canvas.height / 2;
+
+  function handleMouseMove(event) {
+    const canvasRect = canvas.getBoundingClientRect();
+    mouseX = event.clientX - canvasRect.left;
+    mouseY = event.clientY - canvasRect.top;
   }
 
   function startGame() {
-    document.addEventListener("keydown", handleKeyPress);
     generateFood();
     gameInterval = setInterval(() => {
       moveSnake();
