@@ -92,9 +92,9 @@
     const deltaY = event.clientY - centerY;
     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     
-    const speed = 2;
-    snakeDX = (deltaX / distance) * speed;
-    snakeDY = (deltaY / distance) * speed;
+    const sensitivity = 0.5; // 调整灵敏度
+    snakeDX = (deltaX / distance) * sensitivity;
+    snakeDY = (deltaY / distance) * sensitivity;
   });
 </script>
 </body>
