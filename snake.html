@@ -1,226 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f0f0;
-        }
-
-        .game-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-            border: 2px solid #000;
-            overflow: hidden;
-        }
-
-        .snake, .food {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #00f;
-        }
-
-        .food {
-            background-color: #f00;
-        }
-
-        .joystick {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-        }
-
-        .score {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 18px;
-        }
-    </style>
-    <title>贪吃蛇游戏</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>贪吃蛇游戏</title>
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  #game-board {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #000;
+  }
+  #snake {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #00f;
+  }
+  #food {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #f00;
+  }
+  #score {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+  }
+</style>
 </head>
 <body>
-    <div class="game-container">
-        <div class="snake"></div>
-        <div class="food"></div>
-        <div class="joystick"></div>
-        <div class="score">Score: 0</div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const gameContainer = document.querySelector('.game-container');
-            const snake = document.querySelector('.snake');
-            const food = document.querySelector('.food');
-            const joystick = document.querySelector('.joystick');
-            const scoreDisplay = document.querySelector('.score');
-
-            let snakeX = 0;
-            let snakeY = 0;
-            let foodX = 0;
-            let foodY = 0;
-            let score = 0;
-            let direction = 'right';
-            let newDirection = 'right';
-            let lastTimestamp = 0;
-            const snakeSpeed = 100; // 控制速度
-
-            function initializeGame() {
-                snakeX = 100; // 初始位置
-                snakeY = 100;
-                foodX = getRandomPosition();
-                foodY = getRandomPosition();
-                updateFoodPosition();
-
-                requestAnimationFrame(updateGame);
-            }
-
-            function updateGame(timestamp) {
-                const deltaTime = timestamp - lastTimestamp;
-                lastTimestamp = timestamp;
-
-                moveSnake(deltaTime);
-                checkCollision();
-                checkScore();
-                updateScoreDisplay();
-
-                requestAnimationFrame(updateGame);
-            }
-
-            function moveSnake(deltaTime) {
-                let newX = snakeX;
-                let newY = snakeY;
-
-                switch (direction) {
-                    case 'right':
-                        newX += snakeSpeed * deltaTime / 1000;
-                        break;
-                    case 'left':
-                        newX -= snakeSpeed * deltaTime / 1000;
-                        break;
-                    case 'down':
-                        newY += snakeSpeed * deltaTime / 1000;
-                        break;
-                    case 'up':
-                        newY -= snakeSpeed * deltaTime / 1000;
-                        break;
-                }
-
-                snakeX = newX;
-                snakeY = newY;
-
-                snake.style.left = `${snakeX}px`;
-                snake.style.top = `${snakeY}px`;
-            }
-
-            function checkCollision() {
-                if (snakeX < 0 || snakeY < 0 || snakeX >= gameContainer.offsetWidth || snakeY >= gameContainer.offsetHeight) {
-                    // 边界碰撞
-                    gameOver();
-                    return;
-                }
-
-                // ... （检查蛇是否碰到自身的逻辑）
-                if (snakeX === foodX && snakeY === foodY) {
-                    // 吃到食物
-                    score++;
-                    updateScoreDisplay();
-                    foodX = getRandomPosition();
-                    foodY = getRandomPosition();
-                    updateFoodPosition();
-                }
-
-                // 检查蛇是否碰到自身
-                const segments = document.querySelectorAll('.snake-segment');
-                for (let i = 1; i < segments.length; i++) {
-                    const segment = segments[i];
-                    const segmentX = parseInt(segment.style.left);
-                    const segmentY = parseInt(segment.style.top);
-                    if (Math.abs(snakeX - segmentX) < 20 && Math.abs(snakeY - segmentY) < 20) {
-                        // 蛇碰到自身
-                        gameOver();
-                        return;
-                    }
-                }
-            }
-
-            // ... （其余部分）
-
-            }
-
-            function checkScore() {
-                if (Math.abs(snakeX - foodX) < 20 && Math.abs(snakeY - foodY) < 20) {
-                    // 吃到食物
-                    score++;
-                    updateScoreDisplay();
-                    foodX = getRandomPosition();
-                    foodY = getRandomPosition();
-                    updateFoodPosition();
-                }
-            }
-
-            function updateScoreDisplay() {
-                scoreDisplay.textContent = `Score: ${score}`;
-            }
-
-            function getRandomPosition() {
-                return Math.floor(Math.random() * 380); // 0 到 380 之间的随机数
-            }
-
-            function updateFoodPosition() {
-                food.style.left = `${foodX}px`;
-                food.style.top = `${foodY}px`;
-            }
-
-            function handleMouseMove(event) {
-                const mouseX = event.clientX - gameContainer.offsetLeft;
-                const mouseY = event.clientY - gameContainer.offsetTop;
-
-                const centerX = joystick.offsetWidth / 2;
-                const centerY = joystick.offsetHeight / 2;
-
-                const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
-                const angleInDegrees = angle * (180 / Math.PI);
-
-                if (angleInDegrees >= -45 && angleInDegrees <= 45) {
-                    newDirection = 'right';
-                } else if (angleInDegrees > 45 && angleInDegrees <= 135) {
-                    newDirection = 'down';
-                } else if (angleInDegrees > 135 || angleInDegrees <= -135) {
-                    newDirection = 'left';
-                } else {
-                    newDirection = 'up';
-                }
-            }
-
-            function handleJoystick() {
-                direction = newDirection;
-            }
-
-            function gameOver() {
-                alert(`Game Over! Your Score: ${score}`);
-                direction = 'right';
-                snakeX = 100;
-                snakeY = 100;
-                score = 0;
-                updateScoreDisplay();
-                initializeGame();
-            }
-
-            joystick.addEventListener('mousemove', handleMouseMove);
-            joystick.addEventListener('click', handleJoystick);
-
-            initializeGame();
-        });
-    </script>
+<div id="game-board">
+  <div id="snake"></div>
+  <div id="food"></div>
+  <div id="score">Score: 0</div>
+</div>
+<script>
+  const gameBoard = document.getElementById("game-board");
+  const snake = document.getElementById("snake");
+  const food = document.getElementById("food");
+  const scoreDisplay = document.getElementById("score");
+  
+  let snakeX = 200;
+  let snakeY = 200;
+  let snakeDX = 1;
+  let snakeDY = 0;
+  let foodX = 100;
+  let foodY = 100;
+  let score = 0;
+  
+  function updateGame() {
+    snakeX += snakeDX;
+    snakeY += snakeDY;
+    
+    if (snakeX < 0) snakeX = 380;
+    if (snakeX > 380) snakeX = 0;
+    if (snakeY < 0) snakeY = 380;
+    if (snakeY > 380) snakeY = 0;
+    
+    snake.style.left = snakeX + "px";
+    snake.style.top = snakeY + "px";
+    
+    if (Math.abs(snakeX - foodX) < 20 && Math.abs(snakeY - foodY) < 20) {
+      score += 10;
+      scoreDisplay.textContent = "Score: " + score;
+      foodX = Math.floor(Math.random() * 20) * 20;
+      foodY = Math.floor(Math.random() * 20) * 20;
+      food.style.left = foodX + "px";
+      food.style.top = foodY + "px";
+    }
+    
+    requestAnimationFrame(updateGame);
+  }
+  
+  updateGame();
+  
+  gameBoard.addEventListener("mousemove", (event) => {
+    const centerX = snakeX + 10;
+    const centerY = snakeY + 10;
+    const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+    const speed = 2;
+    snakeDX = Math.cos(angle) * speed;
+    snakeDY = Math.sin(angle) * speed;
+  });
+</script>
 </body>
 </html>
