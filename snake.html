@@ -8,11 +8,7 @@
     align-items: center;
     height: 100vh;
     margin: 0;
-    
-            
-    background-image: url("back.jpg"); /* 修改为png格式 */
-    background-size: cover;
-    background-position: center top;
+    background-color: white; /* 将背景改为白色 */
     font-family: Arial, sans-serif;
   }
   canvas {
@@ -28,7 +24,7 @@
 
   const gridSize = 20;
   let snake = [{ x: 2, y: 2 }];
-  let food = { x: [], y: [] };
+  let food = [];
   let direction = "right";
   let gameInterval;
   let score = 0;
@@ -38,15 +34,19 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     snake.forEach(segment => {
       ctx.fillStyle = "blue";
-      ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+      ctx.beginPath();
+      ctx.arc(segment.x * gridSize + gridSize / 2, segment.y * gridSize + gridSize / 2, gridSize / 2, 0, Math.PI * 2);
+      ctx.fill();
     });
   }
 
   function drawFood() {
     ctx.fillStyle = "red";
-    for (let i = 0; i < foodCount; i++) {
-      ctx.fillRect(food.x[i] * gridSize, food.y[i] * gridSize, gridSize, gridSize);
-    }
+    food.forEach(f => {
+      ctx.beginPath();
+      ctx.arc(f.x * gridSize + gridSize / 2, f.y * gridSize + gridSize / 2, gridSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+    });
   }
 
   function drawScore() {
@@ -75,10 +75,12 @@
 
     snake.unshift(newHead);
 
-    for (let i = 0; i < foodCount; i++) {
-      if (newHead.x === food.x[i] && newHead.y === food.y[i]) {
+    for (let i = 0; i < food.length; i++) {
+      if (newHead.x === food[i].x && newHead.y === food[i].y) {
         score += 1;
+        food.splice(i, 1);
         generateFood();
+        break;
       }
     }
 
@@ -92,10 +94,12 @@
   }
 
   function generateFood() {
-    food = { x: [], y: [] };
-    for (let i = 0; i < foodCount; i++) {
-      food.x.push(Math.floor(Math.random() * (canvas.width / gridSize)));
-      food.y.push(Math.floor(Math.random() * (canvas.height / gridSize)));
+    if (food.length < foodCount) {
+      const newFood = {
+        x: Math.floor(Math.random() * (canvas.width / gridSize)),
+        y: Math.floor(Math.random() * (canvas.height / gridSize))
+      };
+      food.push(newFood);
     }
 
     if (score >= 10) {
