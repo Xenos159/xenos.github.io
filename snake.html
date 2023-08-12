@@ -22,11 +22,9 @@
 
   const gridSize = 20;
   let snake = [{ x: 2, y: 2 }];
-  let food = { x: [], y: [] }; // Updated to arrays for multiple foods
+  let food = { x: [], y: [] };
   let direction = "right";
   let gameInterval;
-  
-  // New variables for score and food count
   let score = 0;
   let foodCount = 1;
 
@@ -43,6 +41,12 @@
     for (let i = 0; i < foodCount; i++) {
       ctx.fillRect(food.x[i] * gridSize, food.y[i] * gridSize, gridSize, gridSize);
     }
+  }
+
+  function drawScore() {
+    ctx.fillStyle = "black";
+    ctx.font = "20px Arial";
+    ctx.fillText(`Score: ${score}`, canvas.width - 100, 30);
   }
 
   function moveSnake() {
@@ -78,6 +82,7 @@
 
     drawSnake();
     drawFood();
+    drawScore();
   }
 
   function generateFood() {
