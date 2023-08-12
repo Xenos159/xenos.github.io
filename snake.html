@@ -53,7 +53,7 @@
   
   let snakeX = 200;
   let snakeY = 200;
-  let snakeDX = 1;
+  let snakeDX = 0;
   let snakeDY = 0;
   let foodX = 100;
   let foodY = 100;
@@ -88,10 +88,13 @@
   gameBoard.addEventListener("mousemove", (event) => {
     const centerX = snakeX + 10;
     const centerY = snakeY + 10;
-    const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+    const deltaX = event.clientX - centerX;
+    const deltaY = event.clientY - centerY;
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    
     const speed = 2;
-    snakeDX = Math.cos(angle) * speed;
-    snakeDY = Math.sin(angle) * speed;
+    snakeDX = (deltaX / distance) * speed;
+    snakeDY = (deltaY / distance) * speed;
   });
 </script>
 </body>
