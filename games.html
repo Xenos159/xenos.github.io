@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Unity Game</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XenosMC</title>
+    <link rel="shortcut icon" href="进化的滑稽.ico">
 </head>
 <body>
-    <h1>Welcome to My Unity Game</h1>
-    <iframe src="games/Test/index.html" width="800" height="600"></iframe>
+    <div class="topbar"><strong>XenosMC</strong></div> <!-- 顶部悬浮栏 -->
+    <div class="floating-bar"> </div> <!-- 悬浮栏 -->
+    <div class="container main-content">
+        <h1><strong>Xenos MC</strong></h1>
+        <h2><em>— —为每一个热爱者</em></h2>
+        
+        <div class="buttons">
+            <a href="snake.html" class="button">在线】贪吃蛇</a>
+            <a href="Tetris-Game---JavaScript-main/BlocksR.html" class="button">在线】俄罗斯方块</a>
+        </div>
+    </div>
+    <div class="links">
+        <a href="#" class="nav-link">关于我们</a>
+        <a href="#" class="nav-link">赞助作者</a>
+    </div>
+
+    <script>
+        const topbar = document.querySelector('.topbar');
+        const floatingBar = document.querySelector('.floating-bar');
+        const container = document.querySelector('.container');
+        const mainContent = document.querySelector('.main-content');
+        const buttons = document.querySelectorAll('.button');
+
+        window.onload = function () {
+            topbar.style.transform = 'translateY(0)'; // 添加标题的动画
+            container.style.transform = 'translateY(0)'; // 添加副标题的动画
+            mainContent.style.opacity = 1; // 显示内容
+            setTimeout(() => {
+                for (let button of buttons) {
+                    button.style.transform = 'translateY(0)'; // 添加按钮的动画
+                    button.style.opacity = 1; // 显示按钮
+                }
+            }, 200);
+        };
+    </script>
 </body>
 </html>
+
