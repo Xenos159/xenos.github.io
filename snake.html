@@ -75,43 +75,149 @@
             const snakeSpeed = 100; // 控制速度
 
             function initializeGame() {
-                // 初始化游戏
+                snakeX = 100; // 初始位置
+                snakeY = 100;
+                foodX = getRandomPosition();
+                foodY = getRandomPosition();
+                updateFoodPosition();
+
                 requestAnimationFrame(updateGame);
             }
 
             function updateGame(timestamp) {
-                // 更新游戏
+                const deltaTime = timestamp - lastTimestamp;
+                lastTimestamp = timestamp;
+
+                moveSnake(deltaTime);
+                checkCollision();
+                checkScore();
+                updateScoreDisplay();
+
                 requestAnimationFrame(updateGame);
             }
 
-            function moveSnake() {
-                // 移动蛇的逻辑
+            function moveSnake(deltaTime) {
+                let newX = snakeX;
+                let newY = snakeY;
+
+                switch (direction) {
+                    case 'right':
+                        newX += snakeSpeed * deltaTime / 1000;
+                        break;
+                    case 'left':
+                        newX -= snakeSpeed * deltaTime / 1000;
+                        break;
+                    case 'down':
+                        newY += snakeSpeed * deltaTime / 1000;
+                        break;
+                    case 'up':
+                        newY -= snakeSpeed * deltaTime / 1000;
+                        break;
+                }
+
+                snakeX = newX;
+                snakeY = newY;
+
+                snake.style.left = `${snakeX}px`;
+                snake.style.top = `${snakeY}px`;
             }
 
             function checkCollision() {
-                // 检查碰撞的逻辑
+                if (snakeX < 0 || snakeY < 0 || snakeX >= gameContainer.offsetWidth || snakeY >= gameContainer.offsetHeight) {
+                    // 边界碰撞
+                    gameOver();
+                    return;
+                }
+
+                                if (snakeX === foodX && snakeY === foodY) {
+                    // 吃到食物
+                    score++;
+                    updateScoreDisplay();
+                    foodX = getRandomPosition();
+                    foodY = getRandomPosition();
+                    updateFoodPosition();
+                }
+
+                // 检查蛇是否碰到自身
+                const segments = document.querySelectorAll('.snake-segment');
+                for (let i = 1; i < segments.length; i++) {
+                    const segment = segments[i];
+                    const segmentX = parseInt(segment.style.left);
+                    const segmentY = parseInt(segment.style.top);
+                    if (Math.abs(snakeX - segmentX) < 20 && Math.abs(snakeY - segmentY) < 20) {
+                        // 蛇碰到自身
+                        gameOver();
+                        return;
+                    }
+                }
+            }
+
+            
+
             }
 
             function checkScore() {
-                // 检查得分的逻辑
+                if (Math.abs(snakeX - foodX) < 20 && Math.abs(snakeY - foodY) < 20) {
+                    // 吃到食物
+                    score++;
+                    updateScoreDisplay();
+                    foodX = getRandomPosition();
+                    foodY = getRandomPosition();
+                    updateFoodPosition();
+                }
             }
 
             function updateScoreDisplay() {
-                // 更新分数显示的逻辑
+                scoreDisplay.textContent = `Score: ${score}`;
+            }
+
+            function getRandomPosition() {
+                return Math.floor(Math.random() * 380); // 0 到 380 之间的随机数
+            }
+
+            function updateFoodPosition() {
+                food.style.left = `${foodX}px`;
+                food.style.top = `${foodY}px`;
             }
 
             function handleMouseMove(event) {
-                // 根据鼠标位置更新手柄朝向的逻辑
+                const mouseX = event.clientX - gameContainer.offsetLeft;
+                const mouseY = event.clientY - gameContainer.offsetTop;
+
+                const centerX = joystick.offsetWidth / 2;
+                const centerY = joystick.offsetHeight / 2;
+
+                const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
+                const angleInDegrees = angle * (180 / Math.PI);
+
+                if (angleInDegrees >= -45 && angleInDegrees <= 45) {
+                    newDirection = 'right';
+                } else if (angleInDegrees > 45 && angleInDegrees <= 135) {
+                    newDirection = 'down';
+                } else if (angleInDegrees > 135 || angleInDegrees <= -135) {
+                    newDirection = 'left';
+                } else {
+                    newDirection = 'up';
+                }
             }
 
             function handleJoystick() {
-                // 根据手柄朝向更新蛇的方向的逻辑
+                direction = newDirection;
+            }
+
+            function gameOver() {
+                alert(`Game Over! Your Score: ${score}`);
+                direction = 'right';
+                snakeX = 100;
+                snakeY = 100;
+                score = 0;
+                updateScoreDisplay();
+                initializeGame();
             }
 
             joystick.addEventListener('mousemove', handleMouseMove);
             joystick.addEventListener('click', handleJoystick);
 
-            // 初始化游戏
             initializeGame();
         });
     </script>
