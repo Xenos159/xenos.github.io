@@ -53,15 +53,17 @@
   
   let snakeX = 200;
   let snakeY = 200;
-  let snakeDX = 0;
-  let snakeDY = 0;
   let foodX = 100;
   let foodY = 100;
   let score = 0;
   
   function updateGame() {
-    snakeX += snakeDX;
-    snakeY += snakeDY;
+    const deltaX = foodX - snakeX;
+    const deltaY = foodY - snakeY;
+    const angle = Math.atan2(deltaY, deltaX);
+    const speed = 4; // 调整移动速度
+    snakeX += Math.cos(angle) * speed;
+    snakeY += Math.sin(angle) * speed;
     
     if (snakeX < 0) snakeX = 380;
     if (snakeX > 380) snakeX = 0;
@@ -86,15 +88,20 @@
   updateGame();
   
   gameBoard.addEventListener("mousemove", (event) => {
+    const rect = gameBoard.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    
     const centerX = snakeX + 10;
     const centerY = snakeY + 10;
-    const deltaX = event.clientX - centerX;
-    const deltaY = event.clientY - centerY;
+    const deltaX = mouseX - centerX;
+    const deltaY = mouseY - centerY;
+    const angle = Math.atan2(deltaY, deltaX);
     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     
-    const sensitivity = 0.5; // 调整灵敏度
-    snakeDX = (deltaX / distance) * sensitivity;
-    snakeDY = (deltaY / distance) * sensitivity;
+    const sensitivity = 0.15; // 调整灵敏度
+    snakeX += Math.cos(angle) * distance * sensitivity;
+    snakeY += Math.sin(angle) * distance * sensitivity;
   });
 </script>
 </body>
