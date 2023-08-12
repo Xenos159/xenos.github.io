@@ -61,7 +61,7 @@
   function moveSnake() {
     const newHead = { ...snake[0] };
 
-    const angle = Math.atan2(mouseY - newHead.y * gridSize, mouseX - newHead.x * gridSize);
+    const angle = Math.atan2(mouseY - newHead.y * gridSize - gridSize / 2, mouseX - newHead.x * gridSize - gridSize / 2);
     newHead.x += Math.cos(angle);
     newHead.y += Math.sin(angle);
 
@@ -126,7 +126,7 @@
     gameInterval = setInterval(() => {
       moveSnake();
       checkCollision();
-    }, 150);
+    }, 1000 / 15); // 15帧每秒，可以根据需要调整
   }
 
   startGame();
